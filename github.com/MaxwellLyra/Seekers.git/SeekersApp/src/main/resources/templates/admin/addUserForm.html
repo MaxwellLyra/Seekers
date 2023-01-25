@@ -1,0 +1,72 @@
+<!DOCTYPE HTML>
+
+<!-- Thymeleaf fragment imports -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+	<div th:replace="~{fragments :: nav-bar}"></div>
+
+	<div class="container">
+		<div th:replace="~{fragments :: header('New User')}"></div>
+		<!-- end of  Thymeleaf fragment imports -->
+
+		<div class="card mt-3">
+			
+			<!-- Beginning of form -->
+			<form th:object="${adminRequestNewUser}" class="card-body"
+				action="/admin/new" method="POST">
+				
+				<!-- Username block -->
+				<div class="form-group">
+					<label for="username">Username</label> <input th:field="*{username}" th:errorclass="is-invalid" class="form-control" />
+					<!-- div for @NotBlank annotation error message -->
+					<div class="invalid-feedback" th:errors="*{username}"></div>
+				</div>
+
+				<!-- Email block -->
+				<div class="form-group">
+					<label for="email">Email</label> <input th:field="*{email}" th:errorclass="is-invalid" class="form-control" />
+					<!-- div for @NotBlank annotation error message -->
+					<div class="invalid-feedback" th:errors="*{email}"></div>
+					<!-- Email error message -->
+					<small class="text-danger" th:text="${emailError}"></small>
+				</div>
+				
+				<!-- Password block -->
+				<div class="form-group">
+					<label for="password">Password</label> <input type="password" th:field="*{password}" th:errorclass="is-invalid" class="form-control" />
+					<!-- div for @NotBlank annotation error message -->
+					<div class="invalid-feedback" th:errors="*{password}"></div>
+				</div>
+
+				<!-- Confirm Password block -->
+				<div class="form-group">
+					<label th:text="'Confirm Password'" for="inputFirstName">NewPassword</label>
+					<input th:name="confirmPassword" class="form-control" id="inputFirstName" type="password" />
+					<!--  Password mismatch message --> 
+					<small class="text-danger" th:text="${passwordError}"></small>
+				</div>
+
+				<!-- Role selection block -->
+				<div class="form-group">
+					<label for="role">Role</label> <select th:field="*{role}" class="custom-select custom-select-lg mb-3">
+						<option value="USER">USER</option>
+						<option value="ADM">ADM</option>
+					</select>
+				</div>
+				
+				<!-- Buttons -->
+				<button class="btn btn-primary" type="submit">Save</button>
+				<a class="btn btn-danger" href="/admin">Cancel</a>
+			
+			<!-- End of form -->
+			</form>
+
+		</div>
+	</div>
+	
+	<!-- Bootstrap 5: scripts -->
+	<script	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="js/scripts.js"></script>
+</body>
+</html>

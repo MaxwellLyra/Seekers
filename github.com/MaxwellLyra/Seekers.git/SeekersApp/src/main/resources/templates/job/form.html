@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+
+<!-- Thymeleaf fragment imports -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+	<div th:replace="~{fragments :: nav-bar}"></div>
+
+	<div class="container">
+		<div th:replace="~{fragments :: header('New application')}"></div>
+		<!-- end of  Thymeleaf fragment imports -->
+		
+		<div class="card mt-3">
+		
+			<!-- Beginning of form -->
+			<form th:object="${requestNewJob}" class="card-body" action="/job/new" method="POST">
+				
+				<!-- Job role block -->
+				<div class="form-group needs-validation">
+					<label for="role">Role</label> <input th:field="*{role}" th:errorClass="is-invalid" class="form-control" /> 
+					<small>Role/position offered</small>
+					<!-- div for @NotBlank annotation error message -->
+					<div class="invalid-feedback" th:errors="*{role}"></div>
+				</div>
+
+				<!-- Job URL block -->
+				<div class="form-group">
+					<label for="jobUrl">Job Url</label> <input th:field="*{jobUrl}" th:errorClass="is-invalid" class="form-control" /> 
+					<small>Copy and paste the url from the job offer page</small>
+					<!-- div for @NotBlank annotation error message -->
+					<div class="invalid-feedback" th:errors="*{jobUrl}"></div>
+				</div>
+				
+				<!-- Company name block -->
+				<div class="form-group">
+					<label for="company">Company</label> <input th:field="*{company}" th:errorClass="is-invalid" class="form-control" />
+					<small>Company's name</small>
+					<!-- div for @NotBlank annotation error message -->
+					<div class="invalid-feedback" th:errors="*{company}"></div>
+				</div>
+				
+				<!-- Keywords input block -->
+				<div class="form-group">
+					<label for="keywords">Keywords</label>
+					<textarea th:field="*{keywords}" th:errorClass="is-invalid" class="form-control" placeholder="E.g. Java, Python, Spring Boot (separated by comma)"></textarea>
+					<!-- div for API output error message -->
+					<div class="text-danger" th:text="${message}"></div>
+					<!-- div for @NotBlank annotation error message -->
+					<div class="invalid-feedback" th:errors="*{keywords}"></div>
+					<small>Add important keywords related to YOUR background that matches with the position offered</small>
+				</div>
+				
+				<!-- buttons -->
+				<button class="btn btn-primary" type="submit">Save</button>
+				<a class="btn btn-danger" href="/home">Cancel</a>
+			
+			<!-- End of form -->
+			</form>
+
+		</div>
+	</div>
+</body>
+</html>

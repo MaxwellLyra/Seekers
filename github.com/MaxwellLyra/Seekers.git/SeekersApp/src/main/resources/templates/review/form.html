@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments :: head}"></head>
+<body>
+	<div th:replace="~{fragments :: nav-bar}"></div>
+
+	<div class="container">
+		<div th:replace="~{fragments :: header('New Review')}"></div>
+
+		<div class="card mt-3">
+
+			<!-- Beginning of form -->
+			<form th:object="${requestNewReview}"
+				class="card-body needs-validation" action="/reviews/new"
+				method="POST">
+				<div class="form-group">
+
+					<!-- Dropdown list of company names to add a review -->
+					<label for="satisfaction">Company</label> <select
+						th:field="*{company}" class="custom-select"
+						id="inputGroupSelect01">
+						<option value="Accenture">Accenture</option>
+						<option value="Apple">Apple</option>
+						<option value="Allied Irish Banks">Allied Irish Banks</option>
+						<option value="Bank of Ireland">Bank of Ireland</option>
+						<option value="Google">Google</option>
+						<option value="Intel">Intel</option>
+						<option value="Microsoft">Microsoft</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="satisfaction">Satisfaction</label> <select
+						th:field="*{star}" class="custom-select" id="inputGroupSelect01">
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+						<option value="4">4</option>
+						<option value="5">5</option>
+					</select> <small>From 0 = very dissatisfied to 5 = very satisfied</small>
+				</div>
+
+				<!-- text area w/ grammarly corrector connection and max length set to 255 so the API 
+				won't return error message of max characters exceeded  -->
+				<div class="form-group">
+					<label for="review">Review</label>
+					<textarea th:field="*{userReview}" th:errorclass="is-invalid" class="form-control" maxlength="255"></textarea>
+					<!-- div for @NotBlank annotation error -->
+					<div class="invalid-feedback" th:errors="*{userReview}"></div>
+					<!-- error message displayed if there're any bad words or invalid characters (*) -->
+					<small class="text-danger" th:text="${message}"></small>
+					
+				</div>
+
+				<button class="btn btn-primary" type="submit">Save</button>
+				<a class="btn btn-danger" href="/reviews">Cancel</a>
+			</form>
+		</div>
+	</div>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+	<script src="js/scripts.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+
+</body>
+</html>
